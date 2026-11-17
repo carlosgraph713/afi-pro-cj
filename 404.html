@@ -45,7 +45,9 @@
   } catch (e) {}
   let p = location.pathname.replace(/^\/afi-pro-cj\/?/, '');
   if (!/^(privacidad\.html)?$/.test(p)) p = '';
-  const destino = NUEVA + p + location.hash;
+  // Si se abrió desde el ícono de la app vieja instalada, la app nueva muestra cómo instalarla
+  const desdeApp = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const destino = NUEVA + p + (desdeApp && !p ? '?desde=app-vieja' : '') + location.hash;
   document.getElementById('ir').href = destino;
   setTimeout(() => location.replace(destino), 900);
 })();
