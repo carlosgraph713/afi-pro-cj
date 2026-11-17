@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CJ Metas — nueva dirección</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://carlosgraph713.github.io/cj-metas/">
+<meta http-equiv="refresh" content="4;url=https://carlosgraph713.github.io/cj-metas/">
+<style>
+  :root{--bg:#F6F5FC;--text:#2C2A3A;--dim:#6F6B82;--card:#FFFFFF;--border:#ECEAF6;}
+  @media (prefers-color-scheme: dark){:root{--bg:#16151F;--text:#EEECFA;--dim:#C6C3D9;--card:#22202E;--border:#322F42;}}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px;box-sizing:border-box;}
+  main{box-sizing:border-box;max-width:420px;width:100%;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 18px 40px -24px rgba(60,50,120,.4);}
+  svg{width:84px;height:84px}
+  h1{font-size:22px;margin:14px 0 6px;}
+  p{color:var(--dim);margin:0 0 18px;}
+  a{display:inline-block;background:linear-gradient(135deg,#8FDDC4,#A9A2F0);color:#1F2A3A;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:14px;}
+</style>
+</head>
+<body>
+<main>
+  <svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FDDC4"/><stop offset="1" stop-color="#A9A2F0"/></linearGradient></defs><rect width="120" height="120" rx="30" fill="url(#g)"/><path d="M18 94 L46 56 L60 72 L78 44 L102 94 Z" fill="#FFFFFF" opacity=".92"/><path d="M78 44 L78 20" stroke="#4E4AB3" stroke-width="4.5" stroke-linecap="round"/><path d="M79 21 L98 27 L79 34 Z" fill="#FFB996"/><path d="M46 56 L52 64 L40 64 Z M78 44 L85 56 L71 56 Z" fill="#E4E1FB"/><rect x="18" y="92" width="84" height="5" rx="2.5" fill="#FFFFFF" opacity=".7"/></svg>
+  <h1>CJ Metas tiene nueva dirección</h1>
+  <p>Ahora está en <strong>carlosgraph713.github.io/cj-metas</strong>. Tus datos se pasan solos. Si tenías la app instalada, bórrala e instálala de nuevo desde la dirección nueva.</p>
+  <a id="ir" href="https://carlosgraph713.github.io/cj-metas/">Abrir CJ Metas</a>
+</main>
+<script>
+/* Quita la versión vieja guardada en el dispositivo (solo la de esta dirección) y lleva a la nueva */
+(async () => {
+  const NUEVA = 'https://carlosgraph713.github.io/cj-metas/';
+  try {
+    if ('serviceWorker' in navigator) {
+      for (const r of await navigator.serviceWorker.getRegistrations()) {
+        if (r.scope.includes('/afi-pro-cj/')) await r.unregister();
+      }
+    }
+  } catch (e) {}
+  try {
+    if (window.caches) {
+      for (const k of await caches.keys()) {
+        if (k.startsWith('afi-pro-cj-') || /^cj-metas-v7\.[01]$/.test(k)) await caches.delete(k);
+      }
+    }
+  } catch (e) {}
+  let p = location.pathname.replace(/^\/afi-pro-cj\/?/, '');
+  if (!/^(privacidad\.html)?$/.test(p)) p = '';
+  const destino = NUEVA + p + location.hash;
+  document.getElementById('ir').href = destino;
+  setTimeout(() => location.replace(destino), 900);
+})();
+</script>
+</body>
+</html>
